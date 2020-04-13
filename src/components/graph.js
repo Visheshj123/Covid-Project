@@ -8,9 +8,10 @@ var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const Graph = (props) => {
 
-  //TODO: Use momentJS to format the dates, earse all duplicates, set this as the new state 
+  //TODO: Use momentJS to format the dates, earse all duplicates, set this as the new state
 
   //TODO: Might want to set local state with each field holding the seperate line graphs you want
+  //
 
 
 

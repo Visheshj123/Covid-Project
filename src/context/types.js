@@ -1,0 +1,3 @@
+const COVID_DATA='COVID-DATA'
+
+export {COVID_DATA}

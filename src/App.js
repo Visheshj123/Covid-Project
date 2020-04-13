@@ -1,25 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useContext } from 'react';
+import "bootswatch/dist/darkly/bootstrap.min.css";
+import Stats from './components/stat'
+import Graph from './components/graph'
+import CovidState from './context/state'
 
-function App() {
+
+
+function App(props) {
+
+
+  //covidContext.getData()
   return (
+    <CovidState>
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Stats></Stats>
+      <Graph></Graph>
     </div>
+  </CovidState>
   );
 }
 

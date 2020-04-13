@@ -1,4 +1,4 @@
-import {COVID_DATA} from './types'
+import {COVID_DATA, ALL_DATA} from './types'
 
 
 export default (state, action) => {
@@ -10,6 +10,10 @@ export default (state, action) => {
         new_cases: action.payload.new_cases,
         total_deaths: action.payload.total_deaths,
         new_deaths: action.payload.new_deaths}
+      case ALL_DATA:
+        return {
+          ...state, all_cases: action.payload
+        }
 
     default: return state
   }

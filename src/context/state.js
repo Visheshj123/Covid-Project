@@ -2,7 +2,7 @@ import React, { useReducer, useContext } from 'react'
 import axios from 'axios'
 import covidReducer from './reducer'
 import CovidContext from './covidContext'
-import {COVID_DATA} from './types'
+import {COVID_DATA, ALL_DATA} from './types'
 
 
 const CovidState = (porps) => {
@@ -12,7 +12,8 @@ const CovidState = (porps) => {
     total_cases: null,
     new_cases: null,
     total_deaths: null,
-    new_deaths: null
+    new_deaths: null,
+    all_cases: []
   }
   const [state, dispatch] = useReducer(covidReducer, initialState)
 
@@ -24,8 +25,11 @@ const CovidState = (porps) => {
           "x-rapidapi-key": process.env.REACT_APP_API_KEY
         }
       })
-      dispatch({type: COVID_DATA, payload: res.data.stat_by_country[res.data.stat_by_country.length - 5]})
-      console.log(res)
+
+      dispatch({type: COVID_DATA, payload: res.data.stat_by_country[res.data.stat_by_country.length - 1]})
+      dispatch({type:ALL_DATA, payload: res.data.stat_by_country})
+      //console.log(res.data.stat_by_country)
+
   }
 
 

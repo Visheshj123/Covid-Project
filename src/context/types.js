@@ -1,3 +1,4 @@
 const COVID_DATA='COVID-DATA'
+const ALL_DATA = 'ALL_DATA'
 
-export {COVID_DATA}
+export {COVID_DATA, ALL_DATA}

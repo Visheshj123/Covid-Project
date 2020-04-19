@@ -88,9 +88,6 @@ const Stat = (props) => {
       </div>
     </div>
 
-
-
-
 </div>
 </div>
 

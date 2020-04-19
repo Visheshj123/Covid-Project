@@ -43,7 +43,7 @@ const Stat = (props) => {
     <div className="col-sm">
       <div className="card-body">
         <form onSubmit={onClick}>
-          <input type="text" value={totalCases} name='Total Cases' id='total_cases' hidden/>
+          <input type="text" value={totalCases || ''}  name='Total Cases' id='total_cases' hidden readOnly/>
           <button type="submit" className="btn btn-outline-success mb-3">
             <h4 className="card-title mx-auto text-center font-weight-bold" name="New Deaths">Total Cases</h4>
             <p className="card-text text-center">{total_cases}</p>
@@ -55,7 +55,7 @@ const Stat = (props) => {
     <div className="col-sm">
       <div className="card-body">
         <form onSubmit={onClick}>
-          <input type="text" value={newCases} name='New Cases' id='new_cases' hidden/>
+          <input type="text" value={newCases || ''}  name='New Cases' id='new_cases' hidden readOnly/>
           <button type="submit" className="btn btn-outline-success mb-3">
             <h4 className="card-title mx-auto text-center font-weight-bold" name="New Deaths">New Cases</h4>
             <p className="card-text text-center">{new_cases}</p>
@@ -67,7 +67,7 @@ const Stat = (props) => {
     <div className="col-sm">
       <div className="card-body">
         <form onSubmit={onClick}>
-          <input type="text" value={totalDeaths} name='Total Deaths' id='total_deaths' hidden/>
+          <input type="text" value={totalDeaths || ''}  name='Total Deaths' id='total_deaths' hidden readOnly/>
           <button type="submit" className="btn btn-outline-success mb-3">
             <h4 className="card-title mx-auto text-center font-weight-bold" name="New Deaths">Total Deaths</h4>
             <p className="card-text text-center">{total_deaths}</p>
@@ -79,7 +79,7 @@ const Stat = (props) => {
     <div className="col-sm">
       <div className="card-body">
         <form onSubmit={onClick}>
-          <input type="text" value={newDeaths} name='New Deaths' id='new_deaths' hidden/>
+          <input type="text" value={newDeaths || ''} name='New Deaths' id='new_deaths' hidden readOnly/>
           <button type="submit" className="btn btn-outline-success mb-3">
             <h4 className="card-title mx-auto text-center font-weight-bold" name="New Deaths">New Deaths</h4>
             <p className="card-text text-center">{new_deaths}</p>

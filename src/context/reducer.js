@@ -1,4 +1,4 @@
-import {COVID_DATA, ALL_DATA, GRAPHDATA} from './types'
+import {COVID_DATA, ALL_DATA, GRAPHDATA ,REMOVE_GRAPH_DATA} from './types'
 
 
 export default (state, action) => {
@@ -20,6 +20,8 @@ export default (state, action) => {
         return {
           ...state, graphing_arr:[...state.graphing_arr, action.payload]
         }
+      case REMOVE_GRAPH_DATA:
+        return {...state, graphing_arr: state.graphing_arr.filter(data => data.name != action.payload)}
 
     default: return state
   }

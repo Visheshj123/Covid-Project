@@ -2,7 +2,7 @@ import React, { useReducer, useContext } from 'react'
 import axios from 'axios'
 import covidReducer from './reducer'
 import CovidContext from './covidContext'
-import {COVID_DATA, ALL_DATA, GRAPHDATA} from './types'
+import {COVID_DATA, ALL_DATA, GRAPHDATA, REMOVE_GRAPH_DATA} from './types'
 
 
 const CovidState = (porps) => {
@@ -50,21 +50,25 @@ const CovidState = (porps) => {
 
   const getGraphData = (e) => {
     e.preventDefault()
-    console.log(e.target[0].name)
+
     let key, value;
     let temp = {type: "spline", name: e.target[0].name, showInLegend: true, dataPoints: []}
     state.all_cases.forEach(stat => {
       let entries = Object.entries(stat)
       for ([key, value] of entries){
         if (key == e.target[0].id){
-
-          temp['dataPoints'].push({y:parseInt(value), x: stat['record_date']})
+          value = value.replace(/[, ]+/g, "")
+          temp['dataPoints'].push({y:parseInt(value), label: stat['record_date']})
         }
       }
     })
   //dispatch to change graphing arr
-    console.log(temp)
     dispatch({type:GRAPHDATA, payload: temp})
+  }
+
+  const removeGraphData = e => {
+    e.preventDefault()
+    dispatch({type:REMOVE_GRAPH_DATA, payload: e.target[0].name})
   }
 
 
@@ -73,7 +77,8 @@ return(
     getData,
     data: state,
     getGraphData,
-    graphData: state.graphing_arr
+    graphData: state.graphing_arr,
+    removeGraphData
   }}>
       {porps.children}
   </CovidContext.Provider>

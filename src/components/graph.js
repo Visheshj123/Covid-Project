@@ -12,6 +12,9 @@ const Graph = (props) => {
 
   const covidContext = useContext(CovidContext)
   console.log(covidContext.graphData[0])
+  useEffect(() => {
+
+  },[covidContext])
 
 
   /*covidContext.data.all_cases.forEach((data) => {
@@ -44,35 +47,29 @@ const Graph = (props) => {
     total_cases_arr.push({y: parseInt(total_cases), label: record_date})
 
   })*/
-
-
-
   const options = {
       animationEnabled: true,
       backgroundColor: "#222",
-      title: {
+      title: covidContext.graphData.length != 0 ? {
         fontColor: "white",
         text: "Trends of COVID"
-      },
+      } : {},
       axisY: {
-        title: "Cases",
+        title: "Cases" ,
         includeZero: false,
         titleFontColor: "white"
       },
       toolTip: {
         shared: true
       },
-      data: [{
-        type: "spline",
-        name: "total cases",
-        showInLegend: true,
-        dataPoints: [{
-          x:0, y: 5
-        }]
-      }]
+      data: covidContext.graphData
   }
+
+
+
   return (
-    <div>
+    <div className="container">
+
     <CanvasJSChart options = {options}
             /* onRef = {ref => this.chart = ref} */
         />

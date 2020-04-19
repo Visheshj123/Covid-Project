@@ -1,4 +1,4 @@
-import React,{useContext} from 'react'
+import React,{useContext, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import CanvasJSReact from '../canvasjs.react'
 import CovidContext from '../context/covidContext'
@@ -8,33 +8,56 @@ var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const Graph = (props) => {
 
-  //TODO: Use momentJS to format the dates, earse all duplicates, set this as the new state
-
-  //TODO: Might want to set local state with each field holding the seperate line graphs you want
-  //
-
 
 
   const covidContext = useContext(CovidContext)
-  let total_cases_arr = []
+  console.log(covidContext.graphData[0])
 
-  covidContext.data.all_cases.forEach((data) => {
-    let {total_cases, record_date} = data
+
+  /*covidContext.data.all_cases.forEach((data) => {
+    let entries = Object.entries(data)
+        let key, value;
+        for ([key, value] of entries) {
+          if(value != null){
+            data[key] = data[key].replace(/[,]+/g, "")
+            //console.log(data[key])
+          }
+
+        }
+
+    //TODO: For each element in data object array, set the object.values = transformed values
+
+    //TODO: Change the color scheme to teal
+
+
+
+  })*/
+
+  /*covidContext.data.all_cases.forEach((data) => {
+    let {total_cases, new_cases, total_deaths, new_deaths, record_date} = data
+
+    //TODO: For each element in data object array, set the object.values = transformed values
+
+    //TODO: Change the color scheme to teal
+
     total_cases = total_cases.replace(/[, ]+/g, "")
     total_cases_arr.push({y: parseInt(total_cases), label: record_date})
-  })
+
+  })*/
 
 
 
   const options = {
       animationEnabled: true,
-      theme: "dark1",
+      backgroundColor: "#222",
       title: {
+        fontColor: "white",
         text: "Trends of COVID"
       },
       axisY: {
         title: "Cases",
-        includeZero: false
+        includeZero: false,
+        titleFontColor: "white"
       },
       toolTip: {
         shared: true
@@ -43,7 +66,9 @@ const Graph = (props) => {
         type: "spline",
         name: "total cases",
         showInLegend: true,
-        dataPoints: total_cases_arr
+        dataPoints: [{
+          x:0, y: 5
+        }]
       }]
   }
   return (

@@ -2,7 +2,7 @@ import React, { useReducer, useContext } from 'react'
 import axios from 'axios'
 import covidReducer from './reducer'
 import CovidContext from './covidContext'
-import {COVID_DATA, ALL_DATA} from './types'
+import {COVID_DATA, ALL_DATA, GRAPHDATA} from './types'
 
 
 const CovidState = (porps) => {
@@ -13,7 +13,8 @@ const CovidState = (porps) => {
     new_cases: null,
     total_deaths: null,
     new_deaths: null,
-    all_cases: []
+    all_cases: [],
+    graphing_arr: []
   }
   const [state, dispatch] = useReducer(covidReducer, initialState)
 
@@ -26,17 +27,53 @@ const CovidState = (porps) => {
         }
       })
 
-      dispatch({type: COVID_DATA, payload: res.data.stat_by_country[res.data.stat_by_country.length - 1]})
-      dispatch({type:ALL_DATA, payload: res.data.stat_by_country})
+      //reformat Date for each element
+      let formatedArr = res.data.stat_by_country.map(entry => {
+        entry.record_date = new Date(entry.record_date).toDateString()
+        return entry ;
+      })
+
+      //Delete Duplicates, get latest post of each date
+      let uniqueArr = formatedArr.filter(element => {
+          if(formatedArr[formatedArr.indexOf(element) + 1]){
+        return element.record_date != formatedArr[formatedArr.indexOf(element) + 1].record_date
+        }
+      })
+
+
+
+      dispatch({type: COVID_DATA, payload: { data: uniqueArr[uniqueArr.length - 1], country: res.data.country}})
+      dispatch({type:ALL_DATA, payload: uniqueArr})
       //console.log(res.data.stat_by_country)
 
+  }
+
+  const getGraphData = (e) => {
+    e.preventDefault()
+    console.log(e.target[0].name)
+    let key, value;
+    let temp = {type: "spline", name: e.target[0].name, showInLegend: true, dataPoints: []}
+    state.all_cases.forEach(stat => {
+      let entries = Object.entries(stat)
+      for ([key, value] of entries){
+        if (key == e.target[0].id){
+
+          temp['dataPoints'].push({y:parseInt(value), x: stat['record_date']})
+        }
+      }
+    })
+  //dispatch to change graphing arr
+    console.log(temp)
+    dispatch({type:GRAPHDATA, payload: temp})
   }
 
 
 return(
   <CovidContext.Provider value={{
     getData,
-    data: state
+    data: state,
+    getGraphData,
+    graphData: state.graphing_arr
   }}>
       {porps.children}
   </CovidContext.Provider>

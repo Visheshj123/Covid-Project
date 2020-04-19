@@ -7,48 +7,78 @@ const Stat = (props) => {
   useEffect(() => {
     covidContext.getData()
   },[])
+
    const { country, total_cases, new_cases, total_deaths, new_deaths } = covidContext.data
+   const { getGraphData } = covidContext
+
+   const onClick = e => {
+     e.preventDefault()
+
+     getGraphData(e)
+   }
+
+
   return (
-    <div className="container mt-3">
-  <div className="row">
-    <div className="col-sm">
-    <div className="card border-danger mb-3">
-        <div className="card-body">
-          <h4 className="card-title mx-auto text-danger text-center font-weight-bold">Total Cases</h4>
-          <p className="card-text text-center"> {total_cases}</p>
-        </div>
-      </div>
+    <div className='container'>
+      <div className="row">
 
-    </div>
     <div className="col-sm">
-      <div className="card border-warning mb-3">
-        <div className="card-body">
-          <h4 className="card-title mx-auto text-warning text-center font-weight-bold">New Cases</h4>
-          <p className="card-text text-center">{new_cases}</p>
-        </div>
-      </div>
-    </div>
-    <div className="col-sm">
-      <div className="card border-light mb-3" >
-        <div className="card-body">
-          <h4 className="card-title mx-auto text-muted text-center font-weight-bold">Total Deaths</h4>
-          <p className="card-text text-center">{total_deaths}</p>
-        </div>
+      <div className="card-body">
+        <form onSubmit={onClick}>
+          <input type="text" value={total_cases} name='Total Cases' hidden/>
+          <button type="submit" className="btn btn-outline-success mb-3">
+            <h4 className="card-title mx-auto text-center font-weight-bold" name="New Deaths">Total Cases</h4>
+            <p className="card-text text-center">{total_cases}</p>
+          </button>
+        </form>
       </div>
     </div>
 
     <div className="col-sm">
-      <div className="card border-info mb-3">
-        <div className="card-body">
-          <h4 className="card-title mx-auto text-primary text-center font-weight-bold">New Deaths</h4>
-          <p className="card-text text-center">{new_deaths}</p>
-        </div>
+      <div className="card-body">
+        <form onSubmit={onClick}>
+          <input type="text" value={new_cases} name='New Cases' hidden/>
+          <button type="submit" className="btn btn-outline-success mb-3">
+            <h4 className="card-title mx-auto text-center font-weight-bold" name="New Deaths">New Cases</h4>
+            <p className="card-text text-center">{new_cases}</p>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div className="col-sm">
+      <div className="card-body">
+        <form onSubmit={onClick}>
+          <input type="text" value={total_deaths} name='Total Deaths' hidden/>
+          <button type="submit" className="btn btn-outline-success mb-3">
+            <h4 className="card-title mx-auto text-center font-weight-bold" name="New Deaths">Total Deaths</h4>
+            <p className="card-text text-center">{total_deaths}</p>
+          </button>
+        </form>
       </div>
     </div>
 
 
+
+<div className="col-sm">
+  <div className="card-body">
+    <form onSubmit={onClick}>
+      <input type="text" value={new_deaths} name='New Deaths' id='new_deaths' hidden/>
+      <button type="submit" className="btn btn-outline-success mb-3">
+        <h4 className="card-title mx-auto text-center font-weight-bold" name="New Deaths">New Deaths</h4>
+        <p className="card-text text-center">{new_deaths}</p>
+      </button>
+    </form>
   </div>
 </div>
+
+</div>
+</div>
+
+
+
+
+
   )
 }
 
